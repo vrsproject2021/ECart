@@ -12,7 +12,7 @@ namespace Ecart.Controllers
 {
     public class CartItemsController : Controller
     {
-        private ECartDBEntities db = new ECartDBEntities();
+        private ECartDBEntities1 db = new ECartDBEntities1();
 
         // GET: CartItems
         public ActionResult Index()

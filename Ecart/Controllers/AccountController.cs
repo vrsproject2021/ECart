@@ -69,7 +69,7 @@ namespace Ecart.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login login)
         {
-            using (ECartDBEntities eCart=new ECartDBEntities())
+            using (ECartDBEntities1 eCart=new ECartDBEntities1())
             {
                 var user_details = eCart.Logins.Where(x => x.UserName == login.UserName && x.Password == login.Password ).FirstOrDefault();
                 if (user_details == null)
@@ -176,7 +176,7 @@ namespace Ecart.Controllers
             if (ModelState.IsValid)
             {
                 //var user = new ApplicationUser { UserName = login.UserName, Password = login.Password };
-                using(ECartDBEntities ecart=new ECartDBEntities())
+                using(ECartDBEntities1 ecart=new ECartDBEntities1())
                 {
                     if(ModelState.IsValid)
                     {
