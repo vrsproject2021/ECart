@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Ecart.Models.CartItem>
+
+@{
+
+    ViewBag.Title = "Index";
+    Layout = "";
+}
+
+<html>
+<head>
+    @Styles.Render("~/Cart/cartcss.css")
+    @Scripts.Render("~/Cart/cartjs.js")
+
+
+    <title>Locatielezen Administrator page</title>
+    @*<link rel="stylesheet" href="normalize.css" charset="utf-8" />
+        <link rel="stylesheet" href="admin--test.css" charset="utf-8" />*@
+    @Scripts.Render("~/https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
+    @Styles.Render("~/HomeContent/css/bootstrap.min.css")
+    @Scripts.Render("~LoginContent/vendor/bootstrap/js/popper.js")
+    @Scripts.Render("~vendor/bootstrap/js/bootstrap.min.js")
+
+</head>
+
+
+   
+
+   
+    <body class="admin">
+
+        <header class="admin__statusbar flex--center">
+            <span class="home"><i class="fa fa-home"></i>Home</span>
+            <span id="username"><i class="fa fa-user"></i>Tycho Atsma</span>
+        </header>
+
+        <nav class="admin__sidepanel">
+            <ul>
+                <li>
+                    <i class="fa fa-file-text-o"></i>Create Book
+                </li>
+                <li>
+                    <i class="fa fa-pencil-square-o"></i>Modify Book
+                </li>
+                <li>
+                    <i class="fa fa-times-circle-o"></i>Delete Book
+                </li>
+                <li>
+                    <i class="fa fa-plus-square-o"></i>Add Item
+                </li>
+            </ul>
+        </nav>
+
+        <!--<main class="admin__main">
+
+          <h1>
+            Document Title
+          </h1>
+
+        </main>
+    -->
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <div class="tablediv">
+            <table class="table table-bordered table-condensed table-striped table-hover sortable">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductDescription)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CartID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CartID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CartID })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </body>
+</html>
+
+
+
