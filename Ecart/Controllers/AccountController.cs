@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Ecart.Models;
+using System.Text;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace Ecart.Controllers
 {
@@ -67,34 +70,36 @@ namespace Ecart.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Login login)
+        public ActionResult Login(tbllogin login)
         {
-            using (ECartDBEntities1 eCart=new ECartDBEntities1())
+            using (ecommercedbEntities eCart =new ecommercedbEntities())
             {
-                var user_details = eCart.Logins.Where(x => x.UserName == login.UserName && x.Password == login.Password ).FirstOrDefault();
+                login.password = encrypt(login.password);
+                var user_details = eCart.tbllogins.Where(x => x.username == login.username && x.password == login.password ).FirstOrDefault();
                 if (user_details == null)
                 {
                     //login.LoginErrorMessage = "Wrong Usernamess or Password";
                     return View("Login", "Account");
+                    
                 }
                 else
                 {
-                    if(user_details.UserRole==1)
+                    if(user_details.userrole=="Admin")
                     {
-                        Session["UserID"] = user_details.UserId;
-                        Session["UserName"] = user_details.UserName;
-                        return RedirectToAction("Index", "CartItems");
+                        Session["UserID"] = user_details.userid;
+                        Session["UserName"] = user_details.username;
+                        return RedirectToAction("Create", "ProductsMan");
                     }
                     else
                     {
-                        Session["UserID"] = user_details.UserId;
-                        Session["UserName"] = user_details.UserName;
+                        Session["UserID"] = user_details.userid;
+                        Session["UserName"] = user_details.username;
                         return RedirectToAction("Index", "Home");
                     }
                  
                 }
             }
-        
+         
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -125,6 +130,16 @@ namespace Ecart.Controllers
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
+        public ActionResult Logout()
+        {
+            int UserID =(int)Session["UserID"];
+            
+            Session.Abandon();
+
+            return RedirectToAction("Login", "Account");
+        }
+
+
 
         //
         // POST: /Account/VerifyCode
@@ -171,16 +186,25 @@ namespace Ecart.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Login login)
+        public ActionResult Register(tbllogin login)
         {
             if (ModelState.IsValid)
             {
                 //var user = new ApplicationUser { UserName = login.UserName, Password = login.Password };
-                using(ECartDBEntities1 ecart=new ECartDBEntities1())
+                using(ecommercedbEntities ecart=new ecommercedbEntities())
                 {
                     if(ModelState.IsValid)
                     {
-                        ecart.Logins.Add(login);
+                        login.password = encrypt(login.password);
+                        if(login.userrole=="1")
+                        {
+                            login.userrole = "Admin";
+                        }
+                        else
+                        {
+                            login.userrole = "User";
+                        }
+                        ecart.tbllogins.Add(login);
                         ecart.SaveChanges();
                     }
                 }
@@ -190,6 +214,27 @@ namespace Ecart.Controllers
 
             // If we got this far, something failed, redisplay form
 
+        }
+        public string encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
         }
 
         //

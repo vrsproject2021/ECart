@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Ecart.Models.tblproduct>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "";
+}
+
+@Styles.Render("~/Dashboard/main.css")
+<header role="banner">
+    <h1>Admin Panel</h1>
+    <ul class="utilities">
+        <br>
+        <li class="users"><a>@Session["UserName"].ToString()</a></li>
+        <li class="logout warn">@Html.ActionLink("Logout", "Login", "Account")</li>
+    </ul>
+</header>
+
+<nav role='navigation'>
+    <ul class="main">
+        @*<li class="dashboard">@Html.ActionLink("Add Product", "Create", "Product")</li>*@
+        <li class="dashboard">@Html.ActionLink("Add Product", "Create", "Product")</li>
+        <li class="edit">@Html.ActionLink("View Product", "Index", "ProductManage")</li>
+        <li class="write"><a href="#">Report</a></li>
+        <li class="write"><a @Html.ActionLink("Category", "Index", "Categories")</a></li>
+        @*<li class="comments"><a href="#">Ads</a></li>*@
+        <li class="users">@Html.ActionLink("Manage User", "Index", "User")</li>
+    </ul>
+</nav>
+
+<main role="main">
+    <section class="panel important">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.productname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.imageurl)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.productname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.price)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.ImageUrl)*@
+                        <img src="@Html.DisplayFor(modelItem => item.imageurl)" width="80px" height="50px" />
+                    </td>
+                    <td>
+
+                        <buttonbtn class="btn btn-danger btn-sm bi bi-pencil-square">@Html.ActionLink("Edit", "Edit", new { id = item.productid })  </buttonbtn>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.productid }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.productid }) |
+                        |
+
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.productid })
+                    </td>
+                </tr>
+            }
+            </table>
+    </section>
+
+</main>
+

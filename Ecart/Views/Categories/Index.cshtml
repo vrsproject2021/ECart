@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Ecart.Models.tblcategory>
+
+
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+
+}
+<div class="product-status-wrap">
+    <h4>Catagory List</h4>
+    <p>
+        <div align="left" style="float:left">
+            <input type="button" onclick="location.href='@Url.Action("Create", "Categories")'" class="nav-link btn btn-success create-new-button" value="Create New" />
+        </div>
+    </p>
+    <p>
+        @using (Html.BeginForm("Search", "Categories", FormMethod.Post))
+        {<div align="right">
+                <b>Search </b>
+                @Html.TextBox("searchstring")<input type="submit" value="Search" />
+            </div>
+        }
+    </p>
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+    <table class="table ">
+        <tr>
+            <th>
+                @Html.ActionLink("Category Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+
+
+
+            <th>
+                @Html.ActionLink("Uploaded Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tbllogin.username)
+            </th>
+            <th>Action</th>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createddate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbllogin.username)
+                </td>
+                <td>
+                    <button class="btn btn-outline-info" data-toggle="tooltip" title="Edit">  @Html.ActionLink(" ", "Edit", new { id = item.categoryid }, new { @class = "fa fa-pencil-square-o" })</button>
+                    <button class="btn btn-outline-info" data-toggle="tooltip" title="Trash"> @Html.ActionLink(" ", "Delete", new { id = item.categoryid }, new { @class = "fa fa-trash-o" })</button>
+                    <!--<button class=" btn-sm bi btn-primary bi-pencil-square">@Html.ActionLink("Edit", "Edit", new { id = item.categoryid }) </button>-->
+                    @*@Html.ActionLink("Details", "Details", new { id = item.categoryid }) |*@
+                    <!--<button class=" btn-sm bi btn-danger bi-trash"> @Html.ActionLink("Delete", "Delete", new { id = item.categoryid })</button>-->
+                </td>
+            </tr>
+        }
+
+        </table>
+
+    </div>

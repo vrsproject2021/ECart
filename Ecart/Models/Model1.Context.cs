@@ -13,10 +13,10 @@ namespace Ecart.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ECartDBEntities1 : DbContext
+    public partial class ecommercedbEntities : DbContext
     {
-        public ECartDBEntities1()
-            : base("name=ECartDBEntities1")
+        public ecommercedbEntities()
+            : base("name=ecommercedbEntities")
         {
         }
     
@@ -25,9 +25,14 @@ namespace Ecart.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CartItem> CartItems { get; set; }
-        public virtual DbSet<Login> Logins { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<tblcart> tblcarts { get; set; }
+        public virtual DbSet<tblcategory> tblcategories { get; set; }
+        public virtual DbSet<tblcoupon> tblcoupons { get; set; }
+        public virtual DbSet<tbllogin> tbllogins { get; set; }
+        public virtual DbSet<tblproduct> tblproducts { get; set; }
+        public virtual DbSet<tblpurchase> tblpurchases { get; set; }
+        public virtual DbSet<tblpurchasedetail> tblpurchasedetails { get; set; }
+        public virtual DbSet<tblregistration> tblregistrations { get; set; }
+        public virtual DbSet<tblstockdetail> tblstockdetails { get; set; }
     }
 }

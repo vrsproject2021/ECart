@@ -4,12 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4f44d23067c84c08ab484ce41863c474" Name="Diagram1">
-        <EntityTypeShape EntityType="ECartDBModel.CartItem" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ECartDBModel.Login" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ECartDBModel.Category" Width="1.5" PointX="0.75" PointY="4.5" />
-        <EntityTypeShape EntityType="ECartDBModel.Item" Width="1.5" PointX="3" PointY="4" />
-        <AssociationConnector Association="ECartDBModel.FK_Items_Categories" />
+      <Diagram DiagramId="4f4bf9a2ad8941589c0c3b5c97c05cf8" Name="Diagram1">
+        <EntityTypeShape EntityType="ecommercedbModel.tblcart" Width="1.5" PointX="8" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblcategory" Width="1.5" PointX="3.125" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblcoupon" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tbllogin" Width="1.5" PointX="1.125" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblproduct" Width="1.5" PointX="6.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblpurchase" Width="1.5" PointX="1.125" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblpurchasedetail" Width="1.5" PointX="9.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblregistration" Width="1.5" PointX="4.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecommercedbModel.tblstockdetail" Width="1.5" PointX="8.75" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblcart_tbllogin" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblcart_tblproduct" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblcategory_tbllogin" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblproduct_tblcategory" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblcoupon_tbllogin" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblproduct_tbllogin" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblpurchase_tbllogin" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblregistration_tbllogin" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblpurchasedetails_tblproduct" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblstockdetails_tblproduct" ManuallyRouted="false" />
+        <AssociationConnector Association="ecommercedbModel.FK_tblpurchasedetails_tblpurchase" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

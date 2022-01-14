@@ -1085,7 +1085,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333333;
+  color: white;
   background-color: #fff;
 }
 input,
@@ -1561,7 +1561,7 @@ pre {
   margin: 0 0 10px;
   font-size: 13px;
   line-height: 1.42857143;
-  color: #333333;
+  color: #fff;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f5f5f5;
@@ -2599,7 +2599,7 @@ legend {
   margin-bottom: 20px;
   font-size: 21px;
   line-height: inherit;
-  color: #333333;
+  color: #fff;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -3631,7 +3631,7 @@ tbody.collapse.in {
   clear: both;
   font-weight: 400;
   line-height: 1.42857143;
-  color: #333333;
+  color: #fff;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
@@ -5097,8 +5097,8 @@ a.thumbnail.active {
   border-color: #337ab7;
 }
 .thumbnail .caption {
-  padding: 9px;
-  color: #333333;
+    padding: 9px;
+    color: #fff;
 }
 .alert {
   padding: 15px;
@@ -5761,18 +5761,18 @@ button.list-group-item-danger.active:focus {
 .panel-default {
   border-color: #ddd;
 }
-.panel-default > .panel-heading {
-  color: #333333;
-  background-color: #f5f5f5;
-  border-color: #ddd;
-}
+    .panel-default > .panel-heading {
+        color: #fff;
+        background-color: #f5f5f5;
+        border-color: #ddd;
+    }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #ddd;
 }
-.panel-default > .panel-heading .badge {
-  color: #f5f5f5;
-  background-color: #333333;
-}
+        .panel-default > .panel-heading .badge {
+            color: #f5f5f5;
+            background-color: #fff;
+        }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ddd;
 }

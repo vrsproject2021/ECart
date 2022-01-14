@@ -1,5 +1,5 @@
 ﻿@using Ecart.Models
-@model Login
+@model tbllogin
 @{
     ViewBag.Title = "Log in";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login V16</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -37,13 +37,17 @@
     <!--===============================================================================================-->
 </head>
 <body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
     <div class="limiter">
-        <div class="container-login100" style="background-image: url('/LoginContent/images/test2.jpg'); width: 100%; height:100% ">
+        <div class="container-login100" style="background-image: url('/LoginContent/images/newbgg.jpg'); width: 100%; height: 100% ">
             <div class="wrap-login100 p-t-30 p-b-50">
                 <section class="forms-section">
                     @*<h1 class="section-title">Animated Forms</h1>*@
                     <div style="padding-top: 0px; margin-top: 2px">
-                        <img src="/LoginContent/images/LoginLogo1.png" alt="Girl in a jacket" width="300" height="250">
+                        <img src="~/LoginContent/images/LoginLogo1.png" alt="Girl in a jacket" width="300" height="250">
                     </div>
                     <div class="forms" style="padding-top:0px;margin-top:0px;">
                         <div class="form-wrapper is-active">
@@ -58,11 +62,11 @@
                                     <legend>Please, enter your email and password for login.</legend>
                                     <div class="input-block">
                                         <label for="login-email">E-mail</label>
-                                        @Html.TextBoxFor(m => m.UserName)
+                                        @Html.TextBoxFor(m => m.username)
                                     </div>
                                     <div class="input-block">
                                         <label for="login-password">Password</label>
-                                        @Html.PasswordFor(m => m.Password)
+                                        @Html.PasswordFor(m => m.password)
                                     </div>
                                 </fieldset>
                                 <button type="submit" class="btn-login">Login</button>
@@ -80,14 +84,16 @@
                                     <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                                     <div class="input-block">
                                         <label for="signup-email">E-mail</label>
-                                        @Html.TextBoxFor(m => m.UserName, new { type = "email" })
+                                        @Html.TextBoxFor(m => m.username, new { type = "email" })
+                                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="input-block">
                                         <label for="signup-password">Password</label>
-                                        @Html.PasswordFor(m => m.Password)
+                                        @Html.PasswordFor(m => m.password, new { type = "password", })
+                                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="input-block">
-                                        @Html.DropDownListFor(m => m.UserRole, new List<SelectListItem>
+                                        @Html.DropDownListFor(m => m.userrole, new List<SelectListItem>
     { new SelectListItem { Text = "Admin", Value = "1"},
       new SelectListItem { Text = "User", Value = "2"}
       }, "Select Role")
@@ -98,9 +104,10 @@
                         </div>
                     </div>
                 </section>
-                <</div>
+                <
             </div>
         </div>
+    </div>
     <script>
         const switchers = [...document.querySelectorAll('.switcher')]
 
@@ -113,22 +120,22 @@
 
     </script>
 
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/vendor/jquery/jquery-3.2.1.min.js")
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/vendor/animsition/js/animsition.min.js")
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/vendor/bootstrap/js/popper.js")
-                @Scripts.Render("~vendor/bootstrap/js/bootstrap.min.js")
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/vendor/select2/select2.min.js")
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/vendor/daterangepicker/moment.min.js")
-                @Scripts.Render("~LoginContent/vendor/daterangepicker/daterangepicker.js")
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/vendor/countdowntime/countdowntime.js")
-                <!--===============================================================================================-->
-                @Scripts.Render("~LoginContent/js/main.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/vendor/jquery/jquery-3.2.1.min.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/vendor/animsition/js/animsition.min.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/vendor/bootstrap/js/popper.js")
+    @Scripts.Render("~LoginContent/vendor/bootstrap/js/bootstrap.min.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/vendor/select2/select2.min.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/vendor/daterangepicker/moment.min.js")
+    @Scripts.Render("~/LoginContent/vendor/daterangepicker/daterangepicker.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/vendor/countdowntime/countdowntime.js")
+    <!--===============================================================================================-->
+    @Scripts.Render("~/LoginContent/js/main.js")
 
 </body>
 </html>

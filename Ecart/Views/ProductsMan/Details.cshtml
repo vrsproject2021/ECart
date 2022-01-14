@@ -1,0 +1,67 @@
+﻿@model Ecart.Models.tblproduct
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblproduct</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.categoryid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoryid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageurl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageurl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createddate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createddate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbllogin.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbllogin.username)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.productid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

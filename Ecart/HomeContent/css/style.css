@@ -1180,7 +1180,7 @@ ol {
 }
 
 .sidebar__item__color.sidebar__item__color--white label:after {
-	border: 2px solid #333333;
+	border: 2px solid white;
 	background: transparent;
 }
 
@@ -1204,13 +1204,13 @@ ol {
 	background: #3CC032;
 }
 
-.sidebar__item__color label {
-	font-size: 16px;
-	color: #333333;
-	position: relative;
-	padding-left: 32px;
-	cursor: pointer;
-}
+	.sidebar__item__color label {
+		font-size: 16px;
+		color: #fff;
+		position: relative;
+		padding-left: 32px;
+		cursor: pointer;
+	}
 
 .sidebar__item__color label input {
 	position: absolute;
@@ -1850,11 +1850,11 @@ ol {
 	padding-top: 44px;
 }
 
-.product__details__tab .product__details__tab__desc h6 {
-	font-weight: 700;
-	color: #333333;
-	margin-bottom: 26px;
-}
+	.product__details__tab .product__details__tab__desc h6 {
+		font-weight: 700;
+		color: #fff;
+		margin-bottom: 26px;
+	}
 
 .product__details__tab .product__details__tab__desc p {
 	color: #666666;
@@ -2441,12 +2441,12 @@ ol {
 	overflow: hidden;
 }
 
-.blog__sidebar__recent__item__text h6 {
-	font-weight: 700;
-	color: #333333;
-	line-height: 20px;
-	margin-bottom: 5px;
-}
+	.blog__sidebar__recent__item__text h6 {
+		font-weight: 700;
+		color: #fff;
+		line-height: 20px;
+		margin-bottom: 5px;
+	}
 
 .blog__sidebar__recent__item__text span {
 	font-size: 12px;
@@ -2540,12 +2540,12 @@ ol {
 	line-height: 30px;
 }
 
-.blog__details__text h3 {
-	color: #333333;
-	font-weight: 700;
-	line-height: 30px;
-	margin-bottom: 30px;
-}
+	.blog__details__text h3 {
+		color: #fff;
+		font-weight: 700;
+		line-height: 30px;
+		margin-bottom: 30px;
+	}
 
 .blog__details__author__pic {
 	float: left;
@@ -3465,4 +3465,5 @@ ol {
 	.blog__details__hero__text h2 {
 		font-size: 24px;
 	}
+
 }

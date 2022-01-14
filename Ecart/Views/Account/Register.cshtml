@@ -1,4 +1,4 @@
-﻿@model Ecart.Models.Login
+﻿@model Ecart.Models.tbllogin
 @{
     ViewBag.Title = "Register";
 }
@@ -12,21 +12,21 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.username, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.password, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.userrole, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.UserRole , new List<SelectListItem>
+            @Html.DropDownListFor(m => m.userrole , new List<SelectListItem>
      { new SelectListItem { Text = "Admin", Value = "1"},
        new SelectListItem { Text = "User", Value = "2"}
        }, "Select Role")

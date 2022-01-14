@@ -1,0 +1,49 @@
+﻿@model Ecart.Models.tblcategory
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>tblcategory</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.category)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.category)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.createddate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.createddate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tbllogin.username)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbllogin.username)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.categoryid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

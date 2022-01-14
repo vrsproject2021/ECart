@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Ecart.Models.tblregistration>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+<div class="product-status-wrap">
+    <h4>Details</h4>
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <table class="table table-responsive">
+        <tr>
+            <th>
+                Name
+                @*@Html.DisplayNameFor(model => model.name)*@
+            </th>
+            <th>
+                Address Line 1
+                @*@Html.DisplayNameFor(model => model.addressline1)*@
+            </th>
+            <th>
+                Address Line 2
+                @*@Html.DisplayNameFor(model => model.addresslin2)*@
+            </th>
+            <th>
+                City
+                @*@Html.DisplayNameFor(model => model.city)*@
+            </th>
+            <th>
+                Country
+                @*@Html.DisplayNameFor(model => model.country)*@
+            </th>
+            <th>
+                Phone
+                @*@Html.DisplayNameFor(model => model.phone)*@
+            </th>
+            <th>
+                Pin
+                @*@Html.DisplayNameFor(model => model.pin)*@
+            </th>
+            <th>
+                Email
+                @*@Html.DisplayNameFor(model => model.email)*@
+            </th>
+            <th>
+                Is Active
+                @*@Html.DisplayNameFor(model => model.isactive)*@
+            </th>
+            <th>
+                Created Date
+                @*@Html.DisplayNameFor(model => model.createddate)*@
+            </th>
+            <th>
+                User Name
+                @*@Html.DisplayNameFor(model => model.tbllogin.username)*@
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.addressline1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.addresslin2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.city)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isactive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createddate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbllogin.username)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.registrationid }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.registrationid }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.registrationid })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

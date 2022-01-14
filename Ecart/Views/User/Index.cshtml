@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Ecart.Models.tbllogin>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<div class="product-status-wrap">
+    <h4>Products List</h4>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>User Name</th>
+            <th>Password</th>
+            <th>User Role</th>
+            <th>Action</th>
+            <th> </th>
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userrole)
+                </td>
+                <td>
+                    <button class="btn btn-outline-info" data-toggle="tooltip" title="Edit">  @Html.ActionLink(" ", "Edit", new { id = item.userid }, new { @class = "fa fa-pencil-square-o" })</button>
+                    <button class="btn btn-outline-info" data-toggle="tooltip" title="Trash"> @Html.ActionLink(" ", "Delete", new { id = item.userid }, new { @class = "fa fa-trash-o" })</button>
+                    <!--<buttonbtn class="btn btn-primary btn-sm bi bi-pencil-square">  @Html.ActionLink("Edit", "Edit", new { id = item.userid }) </buttonbtn>-->
+                    @*@Html.ActionLink("Details", "Details", new { id = item.userid }) |*@
+                    <!--<buttonbtn class=" btn btn-danger btn-sm bi bi-x-circle-fill">  @Html.ActionLink("Delete", "Delete", new { id = item.userid }) </buttonbtn>-->
+                </td>
+                <td width="20%"><a href="#" class="btn btn-danger" onclick="ConfirmDelete(@item.userid)"><i class="glyphicon glyphicon-trash"></i> </a> </td>
+            </tr>
+        }
+        </table>
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h3 class="modal-title">Delete Employee</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Are you sure you want to Remove this Employee?</h4>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+              
+                        <a href="#" class="btn btn-success" onclick="DeleteEmployee()">Confirm</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+
+        @*hidden field for storing current employeeId*@
+        <input type="hidden" id="hiddenEmployeeId" />
+
+
+
+        <script>
+
+
+
+            var ConfirmDelete = function (EmployeeId) {
+
+                $("#hiddenEmployeeId").val(EmployeeId);
+                $("#myModal").modal('show');
+
+            }
+
+            var DeleteEmployee = function () {
+
+
+
+                var empId = $("#hiddenEmployeeId").val();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Home/deleteEmployeeDetails",
+                    data: { Id: empId },
+                    success: function (result) {
+
+                        $("#myModal").modal("hide");
+                        $("#row_" + empId).remove();
+
+                    }
+
+                })
+
+            }
+
+
+
+        </script>
+
+        }
+    </table>
+
+

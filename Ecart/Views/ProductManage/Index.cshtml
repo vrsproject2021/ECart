@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Ecart.Models.tblproduct>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.productname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.categoryid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.imageurl)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.productname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.imageurl)" width="80px" height="50px" />
+            </td>
+            <td>
+                <buttonbtn class=" btn-sm bi bi-pencil-square">@Html.ActionLink("Edit", "Edit", new { id = item.productid })  </buttonbtn>
+                <buttonbtn class=" btn-sm bi bi-clipboard-data">@Html.ActionLink("Details", "Details", new { id = item.productid }) </buttonbtn>
+                <buttonbtn class="btn-sm bi bi-trash">  @Html.ActionLink("Delete", "Delete", new { id = item.productid }) </buttonbtn>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductID })*@
+                @*@Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })*@
+            </td>
+        </tr>
+            }
+
+        </table>
+
+

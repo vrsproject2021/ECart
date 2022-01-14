@@ -1,0 +1,46 @@
+﻿@model Ecart.Models.tblproduct
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+@{
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+
+}
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageurl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageurl)
+
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.productid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

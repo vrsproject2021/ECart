@@ -1,0 +1,98 @@
+﻿@*@model IEnumerable<Ecart.Models.tblproduct>*@
+@model PagedList.IPagedList<Ecart.Models.tblproduct>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+
+@*<p>
+            @Html.ActionLink("Create New", "Create")
+
+    @*<div class="header-top-menu tabl-d-n">
+            <div class="breadcome-heading">
+                <form role="search" class="">
+                    <input type="text" placeholder="Search..." class="form-control">
+                    <a href=""><i class="fa fa-search"></i></a>
+                </form>
+            </div>
+        </div>*@
+<p>
+    <div align="left" style="float:left">
+        <input type="button" onclick="location.href='@Url.Action("Create", "ProductsMan")'" class="nav-link btn btn-success create-new-button" value="Create New" />
+    </div>
+</p>
+<p>
+    @using (Html.BeginForm("Search", "ProductsMan", FormMethod.Post))
+    {<div align="right">
+            <b>Search </b>
+            @Html.TextBox("searchstring")<input type="submit" value="Search" />
+        </div>
+    }
+</p>
+<div class="product-status-wrap">
+    <h4>Products List</h4>
+    @*<div class="add-product">
+            <button class="btn btn-primary">  @Html.ActionLink("Add Product", "Create", new { htmlAttributes = new { @class = "form-control", name = "zip" } })</button>
+        </div>*@
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Product Title</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Added Date</th>
+            <th>User Name</th>
+            <th>Price</th>
+            <th>Action</th>
+            <th></th>
+        </tr>
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@Html.DisplayFor(modelItem => item.imageurl)" width="80px" height="50px" /></td>
+                <td> @Html.DisplayFor(modelItem => item.productname)</td>
+                <td>
+                    <button class="pd-setting">Active</button>
+                </td>
+                <td> @Html.DisplayFor(modelItem => item.tblcategory.category)</td>
+                <td>@Html.DisplayFor(modelItem => item.createddate)</td>
+                <td> @Html.DisplayFor(modelItem => item.tbllogin.username)</td>
+                <td> @Html.DisplayFor(modelItem => item.price)</td>
+                <td>
+
+                    <button class="btn btn-outline-info" data-toggle="tooltip" title="Edit">  @Html.ActionLink(" ", "Edit", new { id = item.productid }, new { @class = "fa fa-pencil-square-o" })</button>
+                    <button class="btn btn-outline-info" data-toggle="tooltip" title="Trash"> @Html.ActionLink(" ", "Delete", new { id = item.productid }, new { @class = "fa fa-trash-o" })</button>
+                </td>
+                @*<td>
+                        <p title="Delete Data">
+                            <a href="/ProductsMan/delete/@Model.tblproduct.productid">
+                                <img src="~/Content/Images/delete.png">
+                            </a>
+                        </p>
+                    </td>*@
+
+            </tr>
+
+
+        }
+    </table>
+    @*<div class="custom-pagination">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>*@
+</div>
+@Html.PagedListPager(Model, i => Url.Action("Index", "ProductsMan",
+    new { searchstring = Request.QueryString["search"], i }))
+

@@ -1,0 +1,51 @@
+﻿@model Ecart.Models.tblpurchasedetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblpurchasedetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblproduct.productname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblproduct.productname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblpurchase.invoicenumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblpurchase.invoicenumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.purchasedetailsid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

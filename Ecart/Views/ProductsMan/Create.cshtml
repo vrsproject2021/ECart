@@ -1,0 +1,75 @@
+﻿@model Ecart.Models.tblproduct
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Create", "ProductsMan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+   
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    <label class="col-md-4 control-label">Category</label>
+    @*<div>
+        @Html.LabelFor(model => model.categoryid, "category", htmlAttributes: new { @class = "control-label col-md-2" })
+    </div>*@
+    <div class="col-md-4 inputGroupContainer">
+        @Html.DropDownList("categoryid", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.categoryid, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">  Name</label>
+    @*@Html.LabelFor(model => model.productname, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="col-md-4 inputGroupContainer">
+        @Html.EditorFor(model => model.productname, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.productname, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+   
+
+<div class="form-group">
+    <label class="col-md-4 control-label">  Price</label>
+    @*@Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="col-md-4 inputGroupContainer">
+        @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">  Quantity</label>
+    @*@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="col-md-4 inputGroupContainer">
+        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">  Image</label>
+    @*@Html.LabelFor(model => model.imageurl, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="col-md-4 inputGroupContainer">
+        <input type="file" name="ImageFile" />
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-4 inputGroupContainer">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</div>
+</div>
+}
+
+
+

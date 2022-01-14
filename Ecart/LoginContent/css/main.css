@@ -6,13 +6,13 @@
 [ FONT ]*/
 
 @font-face {
-  font-family: Ubuntu-Regular;
-  src: url('../LoginContent/fonts/ubuntu/Ubuntu-Regular.ttf'); 
+	font-family: Ubuntu-Regular;
+	src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
 }
 
 @font-face {
 	font-family: Ubuntu-Bold;
-	src: url('../LoginContent/fonts/ubuntu/Ubuntu-Bold.ttf');
+	src: url('../fonts/ubuntu/Ubuntu-Bold.ttf');
 }
 
 

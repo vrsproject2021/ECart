@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Ecart.Models.tblpurchasedetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblproduct.productname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblpurchase.invoicenumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblproduct.productname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblpurchase.invoicenumber)
+        </td>
+        <td>
+            <buttonbtn class="btn btn-primary btn-sm bi bi-pencil-square">@Html.ActionLink("Edit", "Edit", new { id=item.purchasedetailsid }) </buttonbtn>
+            @*@Html.ActionLink("Details", "Details", new { id=item.purchasedetailsid }) |*@
+        <buttonbtn class=" btn btn-danger btn-sm bi bi-x-circle-fill"> @Html.ActionLink("Delete", "Delete", new { id = item.purchasedetailsid })</buttonbtn>
+</td>
+    </tr>
+}
+
+</table>

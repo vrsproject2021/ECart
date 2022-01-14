@@ -4,181 +4,749 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ECartDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CartItem">
+      <Schema Namespace="ecommercedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblcart">
           <Key>
-            <PropertyRef Name="CartID" />
+            <PropertyRef Name="cartid" />
           </Key>
-          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductID" Type="int" />
-          <Property Name="ProductName" Type="varchar" MaxLength="50" />
-          <Property Name="ProductDescription" Type="varchar" MaxLength="50" />
+          <Property Name="cartid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productid" Type="int" />
+          <Property Name="userid" Type="int" />
+          <Property Name="addeddate" Type="date" />
+          <Property Name="ispurchased" Type="bit" />
         </EntityType>
-        <EntityType Name="Login">
+        <EntityType Name="tblcategory">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="categoryid" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
-          <Property Name="UserRole" Type="int" />
+          <Property Name="categoryid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="200" />
+          <Property Name="userid" Type="int" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Categories">
+        <EntityType Name="tblcoupon">
           <Key>
-            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="couponid" />
           </Key>
-          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="couponid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="couponcode" Type="varchar" MaxLength="200" />
+          <Property Name="discountamount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="userid" Type="int" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="isactive" Type="bit" />
         </EntityType>
-        <EntityType Name="Items">
+        <EntityType Name="tbllogin">
           <Key>
-            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="userid" />
           </Key>
-          <Property Name="ItemId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CategoryId" Type="int" Nullable="false" />
-          <Property Name="ItemName" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="250" />
-          <Property Name="ItemPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="ImageName" Type="varchar" MaxLength="500" />
-          <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
+          <Property Name="userrole" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Items_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+        <EntityType Name="tblproduct">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productname" Type="varchar" MaxLength="150" />
+          <Property Name="categoryid" Type="int" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="imageurl" Type="varchar(max)" />
+          <Property Name="userid" Type="int" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblpurchase">
+          <Key>
+            <PropertyRef Name="purchaseid" />
+          </Key>
+          <Property Name="purchaseid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="invoicenumber" Type="varchar(max)" />
+          <Property Name="totalamount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="discountamount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="userid" Type="int" />
+          <Property Name="createddate" Type="date" />
+        </EntityType>
+        <EntityType Name="tblpurchasedetails">
+          <Key>
+            <PropertyRef Name="purchasedetailsid" />
+          </Key>
+          <Property Name="purchasedetailsid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="purchaseid" Type="int" />
+          <Property Name="productid" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblregistration">
+          <Key>
+            <PropertyRef Name="registrationid" />
+          </Key>
+          <Property Name="registrationid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="addressline1" Type="varchar(max)" Nullable="false" />
+          <Property Name="addresslin2" Type="varchar(max)" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="100" />
+          <Property Name="country" Type="varchar" MaxLength="150" />
+          <Property Name="phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="isactive" Type="bit" Nullable="false" />
+          <Property Name="createddate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblstockdetails">
+          <Key>
+            <PropertyRef Name="stockid" />
+          </Key>
+          <Property Name="stockid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productid" Type="int" />
+          <Property Name="availablequantity" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblcart_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcart" Type="Self.tblcart" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="CategoryId" />
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
             </Principal>
-            <Dependent Role="Items">
-              <PropertyRef Name="CategoryId" />
+            <Dependent Role="tblcart">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ECartDBModelStoreContainer">
-          <EntitySet Name="CartItem" EntityType="Self.CartItem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="Master" store:Type="Tables" />
-          <EntitySet Name="Items" EntityType="Self.Items" Schema="Master" store:Type="Tables" />
-          <AssociationSet Name="FK_Items_Categories" Association="Self.FK_Items_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Items" EntitySet="Items" />
+        <Association Name="FK_tblcart_tblproduct">
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcart" Type="Self.tblcart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblproduct">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tblcart">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblcategory_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcategory" Type="Self.tblcategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblcategory">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblcoupon_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcoupon" Type="Self.tblcoupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblcoupon">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblproduct_tblcategory">
+          <End Role="tblcategory" Type="Self.tblcategory" Multiplicity="0..1" />
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcategory">
+              <PropertyRef Name="categoryid" />
+            </Principal>
+            <Dependent Role="tblproduct">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblproduct_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1" />
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblproduct">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblpurchase_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblpurchase" Type="Self.tblpurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblpurchase">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblpurchasedetails_tblproduct">
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblpurchasedetails" Type="Self.tblpurchasedetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblproduct">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tblpurchasedetails">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblpurchasedetails_tblpurchase">
+          <End Role="tblpurchase" Type="Self.tblpurchase" Multiplicity="0..1" />
+          <End Role="tblpurchasedetails" Type="Self.tblpurchasedetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblpurchase">
+              <PropertyRef Name="purchaseid" />
+            </Principal>
+            <Dependent Role="tblpurchasedetails">
+              <PropertyRef Name="purchaseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblregistration_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblregistration" Type="Self.tblregistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblregistration">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblstockdetails_tblproduct">
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblstockdetails" Type="Self.tblstockdetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblproduct">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tblstockdetails">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecommercedbModelStoreContainer">
+          <EntitySet Name="tblcart" EntityType="Self.tblcart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcategory" EntityType="Self.tblcategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcoupon" EntityType="Self.tblcoupon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbllogin" EntityType="Self.tbllogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblproduct" EntityType="Self.tblproduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblpurchase" EntityType="Self.tblpurchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblpurchasedetails" EntityType="Self.tblpurchasedetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblregistration" EntityType="Self.tblregistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblstockdetails" EntityType="Self.tblstockdetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblcart_tbllogin" Association="Self.FK_tblcart_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogin" />
+            <End Role="tblcart" EntitySet="tblcart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblcart_tblproduct" Association="Self.FK_tblcart_tblproduct">
+            <End Role="tblproduct" EntitySet="tblproduct" />
+            <End Role="tblcart" EntitySet="tblcart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblcategory_tbllogin" Association="Self.FK_tblcategory_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogin" />
+            <End Role="tblcategory" EntitySet="tblcategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblcoupon_tbllogin" Association="Self.FK_tblcoupon_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogin" />
+            <End Role="tblcoupon" EntitySet="tblcoupon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblproduct_tblcategory" Association="Self.FK_tblproduct_tblcategory">
+            <End Role="tblcategory" EntitySet="tblcategory" />
+            <End Role="tblproduct" EntitySet="tblproduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblproduct_tbllogin" Association="Self.FK_tblproduct_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogin" />
+            <End Role="tblproduct" EntitySet="tblproduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblpurchase_tbllogin" Association="Self.FK_tblpurchase_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogin" />
+            <End Role="tblpurchase" EntitySet="tblpurchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblpurchasedetails_tblproduct" Association="Self.FK_tblpurchasedetails_tblproduct">
+            <End Role="tblproduct" EntitySet="tblproduct" />
+            <End Role="tblpurchasedetails" EntitySet="tblpurchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblpurchasedetails_tblpurchase" Association="Self.FK_tblpurchasedetails_tblpurchase">
+            <End Role="tblpurchase" EntitySet="tblpurchase" />
+            <End Role="tblpurchasedetails" EntitySet="tblpurchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblregistration_tbllogin" Association="Self.FK_tblregistration_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogin" />
+            <End Role="tblregistration" EntitySet="tblregistration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblstockdetails_tblproduct" Association="Self.FK_tblstockdetails_tblproduct">
+            <End Role="tblproduct" EntitySet="tblproduct" />
+            <End Role="tblstockdetails" EntitySet="tblstockdetails" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ECartDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CartItem">
+      <Schema Namespace="ecommercedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblcart">
           <Key>
-            <PropertyRef Name="CartID" />
+            <PropertyRef Name="cartid" />
           </Key>
-          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductID" Type="Int32" />
-          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProductDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cartid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="addeddate" Type="DateTime" Precision="0" />
+          <Property Name="ispurchased" Type="Boolean" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK_tblcart_tbllogin" FromRole="tblcart" ToRole="tbllogin" />
+          <NavigationProperty Name="tblproduct" Relationship="Self.FK_tblcart_tblproduct" FromRole="tblcart" ToRole="tblproduct" />
         </EntityType>
-        <EntityType Name="Login">
+        <EntityType Name="tblcategory">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="categoryid" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserRole" Type="Int32" />
+          <Property Name="categoryid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK_tblcategory_tbllogin" FromRole="tblcategory" ToRole="tbllogin" />
+          <NavigationProperty Name="tblproducts" Relationship="Self.FK_tblproduct_tblcategory" FromRole="tblcategory" ToRole="tblproduct" />
         </EntityType>
-        <EntityContainer Name="ECartDBEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CartItems" EntityType="Self.CartItem" />
-          <EntitySet Name="Logins" EntityType="Self.Login" />
-          <EntitySet Name="Categories" EntityType="ECartDBModel.Category" />
-          <EntitySet Name="Items" EntityType="ECartDBModel.Item" />
-          <AssociationSet Name="FK_Items_Categories" Association="ECartDBModel.FK_Items_Categories">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Category">
+        <EntityType Name="tblcoupon">
           <Key>
-            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="couponid" />
           </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Items" Relationship="ECartDBModel.FK_Items_Categories" FromRole="Category" ToRole="Item" />
+          <Property Name="couponid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="couponcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="discountamount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="isactive" Type="Boolean" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK_tblcoupon_tbllogin" FromRole="tblcoupon" ToRole="tbllogin" />
         </EntityType>
-        <EntityType Name="Item">
+        <EntityType Name="tbllogin">
           <Key>
-            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="userid" />
           </Key>
-          <Property Name="ItemId" Type="Guid" Nullable="false" />
-          <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ItemCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ItemPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="ImageName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Category" Relationship="ECartDBModel.FK_Items_Categories" FromRole="Item" ToRole="Category" />
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userrole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblcarts" Relationship="Self.FK_tblcart_tbllogin" FromRole="tbllogin" ToRole="tblcart" />
+          <NavigationProperty Name="tblcategories" Relationship="Self.FK_tblcategory_tbllogin" FromRole="tbllogin" ToRole="tblcategory" />
+          <NavigationProperty Name="tblcoupons" Relationship="Self.FK_tblcoupon_tbllogin" FromRole="tbllogin" ToRole="tblcoupon" />
+          <NavigationProperty Name="tblproducts" Relationship="Self.FK_tblproduct_tbllogin" FromRole="tbllogin" ToRole="tblproduct" />
+          <NavigationProperty Name="tblpurchases" Relationship="Self.FK_tblpurchase_tbllogin" FromRole="tbllogin" ToRole="tblpurchase" />
+          <NavigationProperty Name="tblregistrations" Relationship="Self.FK_tblregistration_tbllogin" FromRole="tbllogin" ToRole="tblregistration" />
         </EntityType>
-        <Association Name="FK_Items_Categories">
-          <End Type="ECartDBModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="ECartDBModel.Item" Role="Item" Multiplicity="*" />
+        <EntityType Name="tblproduct">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productname" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="categoryid" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="imageurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblcarts" Relationship="Self.FK_tblcart_tblproduct" FromRole="tblproduct" ToRole="tblcart" />
+          <NavigationProperty Name="tblcategory" Relationship="Self.FK_tblproduct_tblcategory" FromRole="tblproduct" ToRole="tblcategory" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK_tblproduct_tbllogin" FromRole="tblproduct" ToRole="tbllogin" />
+          <NavigationProperty Name="tblpurchasedetails" Relationship="Self.FK_tblpurchasedetails_tblproduct" FromRole="tblproduct" ToRole="tblpurchasedetails" />
+          <NavigationProperty Name="tblstockdetails" Relationship="Self.FK_tblstockdetails_tblproduct" FromRole="tblproduct" ToRole="tblstockdetails" />
+        </EntityType>
+        <EntityType Name="tblpurchase">
+          <Key>
+            <PropertyRef Name="purchaseid" />
+          </Key>
+          <Property Name="purchaseid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="invoicenumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="totalamount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="discountamount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK_tblpurchase_tbllogin" FromRole="tblpurchase" ToRole="tbllogin" />
+          <NavigationProperty Name="tblpurchasedetails" Relationship="Self.FK_tblpurchasedetails_tblpurchase" FromRole="tblpurchase" ToRole="tblpurchasedetails" />
+        </EntityType>
+        <EntityType Name="tblpurchasedetail">
+          <Key>
+            <PropertyRef Name="purchasedetailsid" />
+          </Key>
+          <Property Name="purchasedetailsid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="purchaseid" Type="Int32" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="tblproduct" Relationship="Self.FK_tblpurchasedetails_tblproduct" FromRole="tblpurchasedetails" ToRole="tblproduct" />
+          <NavigationProperty Name="tblpurchase" Relationship="Self.FK_tblpurchasedetails_tblpurchase" FromRole="tblpurchasedetails" ToRole="tblpurchase" />
+        </EntityType>
+        <EntityType Name="tblregistration">
+          <Key>
+            <PropertyRef Name="registrationid" />
+          </Key>
+          <Property Name="registrationid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="addressline1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="addresslin2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isactive" Type="Boolean" Nullable="false" />
+          <Property Name="createddate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK_tblregistration_tbllogin" FromRole="tblregistration" ToRole="tbllogin" />
+        </EntityType>
+        <EntityType Name="tblstockdetail">
+          <Key>
+            <PropertyRef Name="stockid" />
+          </Key>
+          <Property Name="stockid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productid" Type="Int32" />
+          <Property Name="availablequantity" Type="Int32" />
+          <NavigationProperty Name="tblproduct" Relationship="Self.FK_tblstockdetails_tblproduct" FromRole="tblstockdetails" ToRole="tblproduct" />
+        </EntityType>
+        <Association Name="FK_tblcart_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcart" Type="Self.tblcart" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
             </Principal>
-            <Dependent Role="Item">
-              <PropertyRef Name="CategoryId" />
+            <Dependent Role="tblcart">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblcart_tblproduct">
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcart" Type="Self.tblcart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblproduct">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tblcart">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblcategory_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcategory" Type="Self.tblcategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblcategory">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblproduct_tblcategory">
+          <End Role="tblcategory" Type="Self.tblcategory" Multiplicity="0..1" />
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcategory">
+              <PropertyRef Name="categoryid" />
+            </Principal>
+            <Dependent Role="tblproduct">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblcoupon_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblcoupon" Type="Self.tblcoupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblcoupon">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblproduct_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1" />
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblproduct">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblpurchase_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblpurchase" Type="Self.tblpurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblpurchase">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblregistration_tbllogin">
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblregistration" Type="Self.tblregistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbllogin">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="tblregistration">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblpurchasedetails_tblproduct">
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblpurchasedetails" Type="Self.tblpurchasedetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblproduct">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tblpurchasedetails">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblstockdetails_tblproduct">
+          <End Role="tblproduct" Type="Self.tblproduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblstockdetails" Type="Self.tblstockdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblproduct">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tblstockdetails">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblpurchasedetails_tblpurchase">
+          <End Role="tblpurchase" Type="Self.tblpurchase" Multiplicity="0..1" />
+          <End Role="tblpurchasedetails" Type="Self.tblpurchasedetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblpurchase">
+              <PropertyRef Name="purchaseid" />
+            </Principal>
+            <Dependent Role="tblpurchasedetails">
+              <PropertyRef Name="purchaseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecommercedbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblcarts" EntityType="Self.tblcart" />
+          <EntitySet Name="tblcategories" EntityType="Self.tblcategory" />
+          <EntitySet Name="tblcoupons" EntityType="Self.tblcoupon" />
+          <EntitySet Name="tbllogins" EntityType="Self.tbllogin" />
+          <EntitySet Name="tblproducts" EntityType="Self.tblproduct" />
+          <EntitySet Name="tblpurchases" EntityType="Self.tblpurchase" />
+          <EntitySet Name="tblpurchasedetails" EntityType="Self.tblpurchasedetail" />
+          <EntitySet Name="tblregistrations" EntityType="Self.tblregistration" />
+          <EntitySet Name="tblstockdetails" EntityType="Self.tblstockdetail" />
+          <AssociationSet Name="FK_tblcart_tbllogin" Association="Self.FK_tblcart_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogins" />
+            <End Role="tblcart" EntitySet="tblcarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblcart_tblproduct" Association="Self.FK_tblcart_tblproduct">
+            <End Role="tblproduct" EntitySet="tblproducts" />
+            <End Role="tblcart" EntitySet="tblcarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblcategory_tbllogin" Association="Self.FK_tblcategory_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogins" />
+            <End Role="tblcategory" EntitySet="tblcategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblproduct_tblcategory" Association="Self.FK_tblproduct_tblcategory">
+            <End Role="tblcategory" EntitySet="tblcategories" />
+            <End Role="tblproduct" EntitySet="tblproducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblcoupon_tbllogin" Association="Self.FK_tblcoupon_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogins" />
+            <End Role="tblcoupon" EntitySet="tblcoupons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblproduct_tbllogin" Association="Self.FK_tblproduct_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogins" />
+            <End Role="tblproduct" EntitySet="tblproducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblpurchase_tbllogin" Association="Self.FK_tblpurchase_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogins" />
+            <End Role="tblpurchase" EntitySet="tblpurchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblregistration_tbllogin" Association="Self.FK_tblregistration_tbllogin">
+            <End Role="tbllogin" EntitySet="tbllogins" />
+            <End Role="tblregistration" EntitySet="tblregistrations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblpurchasedetails_tblproduct" Association="Self.FK_tblpurchasedetails_tblproduct">
+            <End Role="tblproduct" EntitySet="tblproducts" />
+            <End Role="tblpurchasedetails" EntitySet="tblpurchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblstockdetails_tblproduct" Association="Self.FK_tblstockdetails_tblproduct">
+            <End Role="tblproduct" EntitySet="tblproducts" />
+            <End Role="tblstockdetails" EntitySet="tblstockdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblpurchasedetails_tblpurchase" Association="Self.FK_tblpurchasedetails_tblpurchase">
+            <End Role="tblpurchase" EntitySet="tblpurchases" />
+            <End Role="tblpurchasedetails" EntitySet="tblpurchasedetails" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ECartDBModelStoreContainer" CdmEntityContainer="ECartDBEntities1">
-          <EntitySetMapping Name="CartItems">
-            <EntityTypeMapping TypeName="ECartDBModel.CartItem">
-              <MappingFragment StoreEntitySet="CartItem">
-                <ScalarProperty Name="CartID" ColumnName="CartID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+        <EntityContainerMapping StorageEntityContainer="ecommercedbModelStoreContainer" CdmEntityContainer="ecommercedbEntities">
+          <EntitySetMapping Name="tblcarts">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblcart">
+              <MappingFragment StoreEntitySet="tblcart">
+                <ScalarProperty Name="cartid" ColumnName="cartid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="addeddate" ColumnName="addeddate" />
+                <ScalarProperty Name="ispurchased" ColumnName="ispurchased" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logins">
-            <EntityTypeMapping TypeName="ECartDBModel.Login">
-              <MappingFragment StoreEntitySet="Login">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <EntitySetMapping Name="tblcategories">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblcategory">
+              <MappingFragment StoreEntitySet="tblcategory">
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="ECartDBModel.Category">
-              <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <EntitySetMapping Name="tblcoupons">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblcoupon">
+              <MappingFragment StoreEntitySet="tblcoupon">
+                <ScalarProperty Name="couponid" ColumnName="couponid" />
+                <ScalarProperty Name="couponcode" ColumnName="couponcode" />
+                <ScalarProperty Name="discountamount" ColumnName="discountamount" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="ECartDBModel.Item">
-              <MappingFragment StoreEntitySet="Items">
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
-                <ScalarProperty Name="ItemPrice" ColumnName="ItemPrice" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+          <EntitySetMapping Name="tbllogins">
+            <EntityTypeMapping TypeName="ecommercedbModel.tbllogin">
+              <MappingFragment StoreEntitySet="tbllogin">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userrole" ColumnName="userrole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblproducts">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblproduct">
+              <MappingFragment StoreEntitySet="tblproduct">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="productname" ColumnName="productname" />
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="imageurl" ColumnName="imageurl" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblpurchases">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblpurchase">
+              <MappingFragment StoreEntitySet="tblpurchase">
+                <ScalarProperty Name="purchaseid" ColumnName="purchaseid" />
+                <ScalarProperty Name="invoicenumber" ColumnName="invoicenumber" />
+                <ScalarProperty Name="totalamount" ColumnName="totalamount" />
+                <ScalarProperty Name="discountamount" ColumnName="discountamount" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblpurchasedetails">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblpurchasedetail">
+              <MappingFragment StoreEntitySet="tblpurchasedetails">
+                <ScalarProperty Name="purchasedetailsid" ColumnName="purchasedetailsid" />
+                <ScalarProperty Name="purchaseid" ColumnName="purchaseid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblregistrations">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblregistration">
+              <MappingFragment StoreEntitySet="tblregistration">
+                <ScalarProperty Name="registrationid" ColumnName="registrationid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="addressline1" ColumnName="addressline1" />
+                <ScalarProperty Name="addresslin2" ColumnName="addresslin2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="pin" ColumnName="pin" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblstockdetails">
+            <EntityTypeMapping TypeName="ecommercedbModel.tblstockdetail">
+              <MappingFragment StoreEntitySet="tblstockdetails">
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="availablequantity" ColumnName="availablequantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
